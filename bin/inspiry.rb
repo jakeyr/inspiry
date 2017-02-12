@@ -10,7 +10,7 @@ def get_quote
   puts "Got a Nice quote from #{author}"
   quote = body["contents"]["quotes"][0]["quote"]
   puts "This wise person says - #{quote}"
-  post_message(author, quote)
+  post_message("Romantic Quote of the Day", "\"#{quote}\" -- #{author}")
 end
 
 def post_message author, quote
