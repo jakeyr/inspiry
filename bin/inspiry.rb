@@ -1,6 +1,7 @@
 require 'httparty'
 require 'json'
 require 'date'
+require 'cgi'
 
 def get_quote
   puts "Getting the Quote of the day."
@@ -10,7 +11,7 @@ def get_quote
   puts "Got a Nice quote from #{author}"
   quote = body["contents"]["quotes"][0]["quote"]
   puts "This wise person says - #{quote}"
-  post_message("Romantic Quote of the Day", "\"#{quote}\" -- #{author}")
+  post_message("Romantic Quote of the Day", ">#{quote}\n>*<http://www.google.com/search?btnI=I'm+Feeling+Lucky&q=site%3Awikipedia.org%20#{CGI.escape(author)}|#{author}>*")
 end
 
 def post_message author, quote
