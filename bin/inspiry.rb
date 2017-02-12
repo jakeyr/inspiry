@@ -17,7 +17,8 @@ end
 def post_message author, quote
   puts "Transferring the vibe through Slack!"
   img = ENV["IMAGE_URL"] || "https://libcom.org/files/images/library/fist.jpg"
-  HTTParty.post SLACK_WEBHOOK, body: {"text" => quote, "username" => author, "icon_url" => img}.to_json, headers: {'content-type' => 'application/json'}
+  emoji = ENV["IMAGE_EMOJI"] || ":smile:"
+  HTTParty.post SLACK_WEBHOOK, body: {"text" => quote, "username" => author, "icon_url" => img, "icon_emoji" => emoji}.to_json, headers: {'content-type' => 'application/json'}
   puts "Posted a message. Hope they'd like it."
 end
 
