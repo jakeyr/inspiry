@@ -20,7 +20,7 @@ def post_message author, quote
   puts "Posted a message. Hope they'd like it."
 end
 
-unless ['Saturday', 'Sunday'].include? Date.today.strftime('%A')
+unless ENV['ENABLE_WEEKENDS'] || ['Saturday', 'Sunday'].include? Date.today.strftime('%A') 
   SLACK_WEBHOOK = ENV["SLACK_WEBHOOK"]
 
   #Available Categories = ["inspire", "management", "sports", "life", "funny", "love", "art"]
