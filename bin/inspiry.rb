@@ -11,14 +11,15 @@ def get_quote
   puts "Got a Nice quote from #{author}"
   quote = body["contents"]["quotes"][0]["quote"]
   puts "This wise person says - #{quote}"
-  post_message("Romantic Quote of the Day", ">#{quote}\n>*<http://www.google.com/search?btnI=I'm+Feeling+Lucky&q=site%3Awikipedia.org%20#{CGI.escape(author)}|#{author}>*")
+  post_message(">#{quote}\n>*<http://www.google.com/search?btnI=I'm+Feeling+Lucky&q=site%3Awikipedia.org%20#{CGI.escape(author)}|#{author}>*")
 end
 
-def post_message author, quote
+def post_message quote
   puts "Transferring the vibe through Slack!"
+  poster = ENV["POST_AS"] || "Quote of the Day"
   img = ENV["IMAGE_URL"] || "https://libcom.org/files/images/library/fist.jpg"
   emoji = ENV["IMAGE_EMOJI"] || ":smile:"
-  HTTParty.post SLACK_WEBHOOK, body: {"text" => quote, "username" => author, "icon_url" => img, "icon_emoji" => emoji}.to_json, headers: {'content-type' => 'application/json'}
+  HTTParty.post SLACK_WEBHOOK, body: {"text" => quote, "username" => poster, "icon_url" => img, "icon_emoji" => emoji}.to_json, headers: {'content-type' => 'application/json'}
   puts "Posted a message. Hope they'd like it."
 end
 
